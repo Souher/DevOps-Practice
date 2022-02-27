@@ -5,6 +5,7 @@ pipeline {
         stage('Build') {
             steps {
 	        sh "cd /Users/Hussein/Desktop/VagrantProject"
+		sh "vagrant init"
                 sh "vagrant up"
             }
         }
