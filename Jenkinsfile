@@ -4,9 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-	        sh "cd /Users/Hussein/Desktop/VagrantProject"
-		sh "vagrant init"
-                sh "vagrant up"
+		sh "/Users/Hussein/Desktop/VagrantProject vagrant init"
+                sh "/Users/Hussein/Desktop/VagrantProject vagrant up"
             }
         }
         stage('Test') {
@@ -16,7 +15,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh "open http://127.0.0.1:4567"
+                sh "/Users/Hussein/Desktop/VagrantProject open http://127.0.0.1:4567"
             }
         }
     }
