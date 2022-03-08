@@ -5,8 +5,13 @@ pipeline {
         stage('Build') {
             steps {
 		dir("/Users/Hussein/Desktop/VagrantProject") {
+			sh "rm VagrantFile"
+			sh "vagrant destroy -f"
 			sh "vagrant init"
-                	sh "vagrant up"
+                	sh "rm VagrantFile"
+			sh "git checkout origin/jenkins"
+			sh "vagrant up"
+			
             	}
 	    }
         }
@@ -18,7 +23,7 @@ pipeline {
         stage('Deploy') {
             steps {
 		dir("/Users/Hussein/Desktop/VagrantProject") {
-                	sh "/Users/Hussein/Desktop/VagrantProject open http://127.0.0.1:4567"
+                	sh "open http://127.0.0.1:4567"
 		}           
  	    }
         }
