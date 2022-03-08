@@ -2,35 +2,34 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Wipe previous state') {
             steps {
 		dir("/Users/Hussein/Desktop/VagrantProject") {
-			sh "rm VagrantFile"
-			sh "vagrant destroy -f"
-			sh "vagrant init"
-                	sh "rm VagrantFile"
-			sh "git checkout origin/jenkins"
-			sh "vagrant up"
-			
+			sh "./freshstate.sh"
             	}
 	    }
         }
-        stage('Test') {
+
+        stage('Test if state is new') {
             steps {
                 echo 'Testing..'
             }
         }
-        stage('Deploy') {
+
+        stage('Build') {
             steps {
 		dir("/Users/Hussein/Desktop/VagrantProject") {
-                	sh "open http://127.0.0.1:4567"
+                	sh "./build.sh"
 		}           
  	    }
         }
-    }
-    post {
-	always {
-	    sh "vagrant destroy"
-	}
+
+ 	stage('Deploy') {
+            steps {
+                dir("/Users/Hussein/Desktop/VagrantProject") {
+                        sh "./deploy.sh"
+                }
+            }   
+        }  
     }
 }
